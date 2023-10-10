@@ -1,0 +1,86 @@
+<html>
+<title>Vector-Based Coloring Method for Grid Networks</title>
+<body>
+<h1>Vector-Based Coloring Method</h1>
+
+<p>
+The Vector-Based Coloring Method, is a coloring method developped for
+dense sensor network organized as grids.</p>
+
+<p>
+The coloring is a h-hop coloring, which can be typically used to allow MAC
+access without collisions (e.g. can be used for a TDMA with spatial reuse).
+</p>
+
+<p>
+The motivation is that when precise measurements of a physical phenomenon are 
+made with sensors, it is natural to have a high density of sensor networks;
+moreover, for ease of deployment and for further numerical analysis
+(finite element methods, etc.), organizing them in a grid is often a 
+good choice.
+</p>
+
+<p>
+The main point of the method is that the color of each node can be
+computed quickly from the nodes coordinates in the grid (rather than
+running an coloring protocol), and most importantly with very little memory use,
+given that most sensor nodes are considerably limited by memory (RAM):
+color computation is performed with few integer arithmetic operations on a few
+bytes (method VCM-NCC2).
+</p>
+
+<p>
+We have computed
+a <a href="optimal-vectors.html">table of some optimal vectors</a> 
+(with figures of some colorings).
+</p>
+
+<h1>Publications</h1>
+<ul>
+<li>C. Adjih, I. Amdouni  and P. Minet,
+<em>"VCM: The Vector-Based Coloring Method for Grid Wireless Ad Hoc
+and Sensor Networks"</em>, MSWiM 2012, Oct. 21-25, Cyprus Island
+</li>
+
+<li>I. Amdouni, C. Adjih and P. Minet,
+<em>"On the Coloring of Grid Wireless Sensor Networks: 
+  the Vector-Based Coloring Method"</em>, INRIA Research Report
+<a href="http://hal.inria.fr/inria-00630233/en/">RR-7756</a>, Oct. 2011. 
+(<a href="http://hal.inria.fr/docs/00/63/02/33/PDF/RR-7756.pdf">pdf</a>)
+
+</li>
+</ul>
+
+
+<h1>Example coloring</h1>
+
+Here is a sample coloring with
+<ul>
+<li>h = 2, R = 3</li>
+<li>Optimal vectors (for periodic coloring): <br>
+<tt>u1=(5,3) u2=(-1,6)</tt> yielding <tt>33</tt> colors.
+<li>With VCM-NCC2, the color of one point at (x,y) is given by <tt>c</tt>
+(integer with 0 &le; c &lt; 33)
+computed as follows:
+<pre>
+c1 = 6*x-(-1*y)
+c2 = -(3*x)+5*y
+ap = c1 // 33
+bp = c2 // 33
+xc = ap % 1
+yc = bp % 1
+xx = c1 % 33
+c = xx + 33 * (xc + 1 * yc)
+</pre>
+<!-- yy = c2 % 33   (not used) -->
+where '//' is integer division (quotient), '%' is modulo (remainder, must be >=0).<br>
+Note: here u1 and u2 are a specific because gcd(5,3)=1 and gcd(1,6)=1
+hence xc=0,yc=0.
+</li>
+</ul>
+<img src="coloring-example.png">
+
+<!--- img src="vectorMethodNew.PNG" --->
+
+</body>
+</html>
